@@ -82,10 +82,10 @@ def getHistData():
 def index():
 	dates, temp, hum = getLastData()
 	templateData = {
-	  'dates'		: dates,
-      'temp'		: temp,
-      'hum'			: hum,
-      'desc'		: desc
+		'dates'		: dates,
+		'temp'		: temp,
+		'hum'		: hum,
+		'desc'		: desc
 	}
 	return render_template('index.html', **templateData)
 
@@ -93,10 +93,10 @@ def index():
 def realtime():
 	dates, temp, hum = getLastData()
 	templateData = {
-	  'dates'		: dates,
-      'temp'		: temp,
-      'hum'			: hum,
-      'desc'		: desc
+		'dates'		: dates,
+		'temp'		: temp,
+		'hum'		: hum,
+		'desc'		: desc
 	}
 	return render_template('realtime.html', **templateData)
 
