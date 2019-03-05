@@ -23,9 +23,9 @@
 	RPi WEb Server for DHT captured data with Graph plot  
 '''
 # # # # # CUSTOMIZATION # # # # #
-desc = "Sala Server Scaravilli"
+desc = "DATATEMPER SENSOR PAGE"
 maxSamples = 180
-maxTemperature = 28
+alertTemp = 25
 # # # # # # # # # # # # # # # # #
 
 # library
@@ -52,17 +52,17 @@ def numSamples():
 	count = curs.fetchall()
 	numSamples = count[0][0]
 	if (numSamples > maxSamples):
-		numSamples = maxSamples - 1
+		numSamples = maxSamples
 	return numSamples
 
 # Retrieve LAST data from database
 def getLastData():
 	for row in curs.execute("SELECT * FROM DHT_data ORDER BY timestamp DESC LIMIT 1"):
-		time = str(row[0])
+		dates = str(row[0])
 		temp = row[1]
 		hum = row[2]
 	#conn.close()
-	return time, temp, hum
+	return dates, temp, hum
 
 # Retrieve numSamples data from database
 def getHistData():
@@ -80,9 +80,9 @@ def getHistData():
 # main route 
 @app.route("/")
 def index():
-	time, temp, hum = getLastData()
+	dates, temp, hum = getLastData()
 	templateData = {
-	  'time'		: time,
+	  'dates'		: dates,
       'temp'		: temp,
       'hum'			: hum,
       'desc'		: desc
@@ -91,9 +91,9 @@ def index():
 
 @app.route("/realtime.html")
 def realtime():
-	time, temp, hum = getLastData()
+	dates, temp, hum = getLastData()
 	templateData = {
-	  'time'		: time,
+	  'dates'		: dates,
       'temp'		: temp,
       'hum'			: hum,
       'desc'		: desc
@@ -102,15 +102,15 @@ def realtime():
 
 @app.route('/plot/temperature.png')
 def plot_temp():
-	global maxTemperature
-	times, temps, hums = getHistData()
+	global alertTemp
+	dates, temps, hums = getHistData()
 	ys = temps
 	fig = Figure()
 	axes = fig.add_subplot(1, 1, 1)
 	axes.set_title("Temperature [°C]")
-	axes.set_xlabel("Samples: " + str(numSamples()) + " | Temp. Alert: " + str(maxTemperature) + "°C")
+	axes.set_xlabel("Samples: " + str(numSamples()) + " | Alert: " + str(alertTemp) + "°C")
 	axes.set_ylim([1,40])
-	axes.hlines(y=maxTemperature, xmin=0, xmax=numSamples(), linewidth=1, color='r')
+	axes.hlines(y=alertTemp, xmin=0, xmax=numSamples(), linewidth=1, color='r')
 	axes.grid(True)
 	xs = range(numSamples())
 	axes.plot(xs, ys)
@@ -123,11 +123,11 @@ def plot_temp():
 
 @app.route('/plot/humidity.png')
 def plot_hum():
-	times, temps, hums = getHistData()
+	dates, temps, hums = getHistData()
 	ys = hums
 	fig = Figure()
 	axes = fig.add_subplot(1, 1, 1)
-	axes.set_title("Humidity [%]")
+	axes.set_title("Humidity Rel. [%]")
 	axes.set_xlabel("Samples: " + str(numSamples()))
 	axes.set_ylim([1,100])
 	axes.grid(True)
