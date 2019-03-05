@@ -40,7 +40,7 @@ sqlite> select COUNT(*) from  DHT_data;
 sqlite> SELECT * FROM DHT_data ORDER BY timestamp DESC LIMIT 10;
 ...
 ## display all entries
-sqlite> SELECT * FROM DHT_DATA;
+sqlite> SELECT * FROM DHT_data;
 ...
 ## exit
 sqlite> .quit
@@ -50,6 +50,6 @@ You can also delete all entries
 ```sql
 $ sqlite3 datatemper-data.db
 ...
-sqlite> DELETE FROM DHT_DATA;
+sqlite> DELETE FROM DHT_data;
 sqlite> .quit
 ```
