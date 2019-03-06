@@ -1,6 +1,7 @@
 # datatemper
 
 Data center temperature monitor for Raspberry Pi and sensor DHT22
+Inspired from this project: https://github.com/Mjrovai/RPI-Flask-SQLite
 
 ### Dependencies
 Python library to read the DHT: https://github.com/adafruit/Adafruit_Python_DHT
