@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # datatemper.py
 
-# TODO: add graph daily, weekly with values and times
+# TODO: daily graph | weekly graph | ...
 
 # Copyright (C) 2019  tomvitale
 #
@@ -24,7 +24,7 @@
 '''
 # # # # # CUSTOMIZATION # # # # #
 desc = "DATATEMPER SENSOR PAGE"
-maxSamples = 180
+maxSamples = 180 # 1 sample per minute
 alertTemp = 25
 # # # # # # # # # # # # # # # # #
 
@@ -100,6 +100,17 @@ def realtime():
 	}
 	return render_template('realtime.html', **templateData)
 
+@app.route("/script.html")
+def script():
+	dates, temp, hum = getLastData()
+	templateData = {
+		'dates'		: dates,
+		'temp'		: temp,
+		'hum'		: hum,
+		'alert'		: alertTemp
+	}
+	return render_template('script.html', **templateData)
+
 @app.route('/plot/temperature.png')
 def plot_temp():
 	global alertTemp
@@ -141,4 +152,4 @@ def plot_hum():
 	return response
 
 if __name__ == "__main__":
-   app.run(host='0.0.0.0', port=80, debug=False)
+	app.run(host='0.0.0.0', port=80, debug=False)
