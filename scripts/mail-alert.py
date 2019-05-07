@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# crontab example
+# */5 * * * *     /usr/bin/python3 /home/user/scripts/mail-alert.py >> /tmp/warningtemp.txt_log
+# 0 1 * * *       > /tmp/warningtemp.txt
+
 import csv
 import sys
 import smtplib, ssl
