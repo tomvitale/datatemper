@@ -17,12 +17,12 @@ Clone the repository Adafruit and compile it
 ```sh
 $ git clone https://github.com/adafruit/Adafruit_Python_DHT.git
 $ cd Adafruit_Python_DHT
-$ sudo python3.5 setup.py install
+$ sudo python3.5 setup.py install ; cd ;
 ```
 
 Clone the repository data temper in your working directory (i.e. /opt/apps/) and execute with sudo and testing it
 ```sh
-$ git clone https://github.com/adafruit/Adafruit_Python_DHT.git
+$ git clone https://github.com/tomvitale/datatemper.git
 $ cd datatemper
 $ sudo python3.5 datatemper-log.py &
 $ sudo python3.5 datatemper.py &
