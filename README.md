@@ -10,22 +10,20 @@ Python library to read the DHT: https://github.com/adafruit/Adafruit_Python_DHT
 ### Installation
 Install packages
 ```sh
-$ sudo apt-get install python3-setuptools python3-setuptools-git python3-seaborn python3-flask python3-rpi.gpio python3.5-dev python3-matplotlib sqlite3
+$ sudo apt-get install python3-setuptools python3-setuptools-git python3-seaborn python3-flask python3-rpi.gpio python3.5-dev python3-matplotlib python3-pip sqlite3
 ```
 
-Clone the repository Adafruit and compile it
+Install Adafruit library
 ```sh
-$ git clone https://github.com/adafruit/Adafruit_Python_DHT.git
-$ cd Adafruit_Python_DHT
-$ sudo python3.5 setup.py install ; cd ;
+$ sudo pip3 install Adafruit_DHT
 ```
 
 Clone the repository data temper in your working directory (i.e. /opt/apps/) and execute with sudo and testing it
 ```sh
 $ git clone https://github.com/tomvitale/datatemper.git
 $ cd datatemper
-$ sudo python3.5 datatemper-log.py &
-$ sudo python3.5 datatemper.py &
+$ sudo python3 datatemper-log.py &
+$ sudo python3 datatemper.py &
 ```
 
 Connect to http://localhost
