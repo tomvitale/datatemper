@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # datatemper.py
 
-# TODO: add graph daily, weekly with values and times
+# TODO: daily graph | weekly graph | ...
 
 # Copyright (C) 2019  tomvitale
 #
@@ -23,39 +23,35 @@
 	RPi WEb Server for DHT captured data with Graph plot  
 '''
 # # # # # CUSTOMIZATION # # # # #
-desc = "Sala Server Scaravilli"
-maxSamples = 180
-alertTemp = 26
+desc = "DESCRIPTION LABEL"
+maxSamples = 180 # 1 sample per minute
+alertTemp = 28
 # # # # # # # # # # # # # # # # #
 
 # library
 import io
+import threading
 import os
-#import threading
 import seaborn as sns
 import sqlite3
-#import sys
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
 from flask import Flask, render_template, send_file, make_response, request
-
-#print('This is error output', file=sys.stderr)
-#print('This is standard output', file=sys.stdout)
 
 app = Flask(__name__)
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 db_path = dir_path + "/datatemper-data.db"
 
-conn=sqlite3.connect(db_path)
-curs=conn.cursor()
+conn = sqlite3.connect(db_path, check_same_thread=False)
+curs = conn.cursor()
 
-#lock = threading.Lock()
+lock = threading.Lock()
 
 # Retrieve database rows
 def numSamples():
 	global maxSamples
-	curs.execute("select COUNT(*) from  DHT_data")
+	curs.execute("select COUNT(*) from DHT_data")
 	count = curs.fetchall()
 	numSamples = count[0][0]
 	if (numSamples > maxSamples):
@@ -83,20 +79,6 @@ def getHistData():
 		temps.append(row[1])
 		hums.append(row[2])
 	return dates, temps, hums
-
-# Retrieve numSamples data from database of specific day
-def getPreviousDay():
-        selectPrevDay = "SELECT * FROM DHT_data WHERE strftime('%Y-%m-%d', timestamp) BETWEEN "+ "2019-03-24" + " and " + "2019-03-24";
-        curs.execute(selectPrevDay)
-        data = curs.fetchall()
-        dates = []
-        temps = []
-        hums = []
-        for row in reversed(data):
-                dates.append(row[0])
-                temps.append(row[1])
-                hums.append(row[2])
-        return dates, temps, hums
 
 # main route 
 @app.route("/")
@@ -134,7 +116,7 @@ def script():
 
 @app.route('/plot/temperature.png')
 def plot_temp():
-#	lock.acquire(True)
+	lock.acquire(True)
 	global alertTemp
 	dates, temps, hums = getHistData()
 	ys = temps
@@ -152,12 +134,12 @@ def plot_temp():
 	canvas.print_png(output)
 	response = make_response(output.getvalue())
 	response.mimetype = 'image/png'
-#	lock.release()
+	lock.release()
 	return response
 
 @app.route('/plot/humidity.png')
 def plot_hum():
-#	lock.acquire(True)
+	lock.acquire(True)
 	dates, temps, hums = getHistData()
 	ys = hums
 	fig = Figure()
@@ -173,30 +155,7 @@ def plot_hum():
 	canvas.print_png(output)
 	response = make_response(output.getvalue())
 	response.mimetype = 'image/png'
-#	lock.release()
-	return response
-
-@app.route('/plot/tempprevday.png')
-def plot_tempprevday():
-#	lock.acquire(True)
-	global alertTemp
-	dates, temps, hums = getPreviousDay()
-	ys = temps
-	fig = Figure()
-	axes = fig.add_subplot(1, 1, 1)
-	axes.set_title("Temperature [°C]")
-	axes.set_xlabel("Samples: " + str(numSamples()) + " | Alert: " + str(alertTemp) + "°C")
-	axes.set_ylim([1,40])
-	axes.hlines(y=alertTemp, xmin=0, xmax=numSamples(), linewidth=1, color='r')
-	axes.grid(True)
-	xs = range(numSamples())
-	axes.plot(xs, ys)
-	canvas = FigureCanvas(fig)
-	output = io.BytesIO()
-	canvas.print_png(output)
-	response = make_response(output.getvalue())
-	response.mimetype = 'image/png'
-#	lock.release()
+	lock.release()
 	return response
 
 if __name__ == "__main__":
