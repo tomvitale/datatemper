@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # datatemper-log.py
 
-# TODO: optimize code | ...
+# TODO: add warings | ...
 
 # Copyright (C) 2019  tomvitale
 #
