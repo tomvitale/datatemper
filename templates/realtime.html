@@ -6,8 +6,13 @@
      <link rel="stylesheet" href='../static/style.css'/>
    </head>
    <body topmargin="0" bottommargin="0" leftmargin="0">
-         <font style='font-size:26px;'>
-         <b>{{ desc }}</b> {{ dates }} | TEMP <font color=red>{{ temp  }}</font> °C | HR <font color=#DF7401>{{ hum  }}</font> % 
-        </font>
+	<font style='font-size:26px;'>
+	<b>{{ desc }}</b> {{ dates }} | TEMP <font color=red>{{ temp  }}</font>  °C | HR <font color=#DF7401>{{ hum  }}</font> % 
+ 	<span id="link"></span>
+	<script>
+	document.getElementById("link").innerHTML = 
+	"| <a href='http://" + window.location.hostname + "'>stats</a>";
+	</script>
+	</font>
    </body>
 </html>
