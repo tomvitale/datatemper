@@ -1,0 +1,39 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          datatemper
+# Required-Start:
+# Required-Stop:
+# Should-Stop:
+# X-Start-Before:
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start python httpd server with temperature sensor output
+# Description:
+### END INIT INFO
+
+mainDir=/opt/apps/datatemper
+
+case "${1:-}" in
+  stop|reload|restart|force-reload)
+        echo "[\e[91mOFF\e[0m] | Stopping Datatemper"
+        ;;
+
+  start)
+        echo "[\e[92mON\e[0m] | Starting Datatemper"
+        /usr/bin/python3 $mainDir/datatemper-log.py &
+        /usr/bin/python3 $mainDir/datatemper.py &
+        ;;
+
+  display|status)
+        echo "[\e[92mOK\e[0m] | Status Datatemper \n"
+        ps aux | grep datatemper
+        echo "\nLog:"
+        tail -15 $mainDir/datatemper.log
+        ;;
+
+  *)
+        echo "Usage: ${0:-} {start|stop|status|restart|reload|force-reload}" >&2
+        exit 1
+        ;;
+esac
