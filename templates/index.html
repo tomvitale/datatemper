@@ -2,24 +2,51 @@
 <html>
 	<head>
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>{{ desc }}</title>
 		<link rel="stylesheet" href='../static/style.css'/>
 	</head>
 	<body>
-
-	<h2>{{ desc }}</h2>
-	 
-	<meter value="{{ temp }}" min="0" max="45" low="21" optimum="20"  high="25">Temperature</meter>
-	<span class="temperature">{{ temp }}</span> °C <br/>
-	 
-	<meter value="{{ hum }}" min="0" max="100" low="25" optimum="50"  high="75">Humidity Rel.</meter>
-	<span class="temperature">{{ hum }}</span> % <br/>
-	 
-	Last update: {{ dates }}<br/>
-
-	<img src="/plot/temperature.png" alt="Temperature graph" width="49%"> 
-	<img src="/plot/humidity.png" alt="Humidity graph" width="49%">
 	
+	<div class="header">
+	<span class="main">
+		{{ desc }}
+	</span>
+	<br/>
+	<span>
+		{{ dates }}
+	</span>
+	
+	<p>
+	<meter value="{{ temp }}" min="0" max="45" low="21" optimum="20"  high="25">Temperature</meter>
+	<span class="temperature">{{ temp }}°C</span>
+	&nbsp; &nbsp; &nbsp;
+	<meter value="{{ hum }}" min="0" max="100" low="25" optimum="50"  high="75">Humidity Rel.</meter>
+	<span class="temperature">{{ hum }}%</span>
+	</p>
+	
+	</div>
+
+	<div class="container" align="center">
+	
+	<div class="box">
+	<img src="/plot/temperature.png" alt="Temperature graph"> 
+	</div>
+
+	<div class="box">
+	<img src="/plot/humidity.png" alt="Humidity graph">
+	</div>
+
+	<br/>
+
+	<span class="statslink">
+		<a href="./realtime.html">ONE ROW STATS</a> | 
+		<a href="./script.html">STATS FOR SCRIPTS</a>
+	</span>
+
+	</div>
+
+
 	<div class="topright">
 	<a href="https://github.com/tomvitale/datatemper" target="_blank"><img width="100" height="100" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_white_ffffff.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
 	</div>
