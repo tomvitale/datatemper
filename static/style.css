@@ -1,32 +1,53 @@
 body{
-	background: white;
-	color: black;
-	padding:1%
-}
-
-.button {
-	font: bold 12px Arial;
-	text-decoration: none;
-	background-color: #EEEEEE;
-	color: #333333;
-	padding: 1px 4px 1px 4px;
-	border-top: 1px solid #CCCCCC;
-	border-right: 1px solid #333333;
-	border-bottom: 1px solid #333333;
-	border-left: 1px solid #CCCCCC;
+  background: white;
+  color: black;
+  padding:1%
 }
 
 img {
-	display: display: inline-block
+  max-width: 100%;
+  height: auto;
 }
 
-span {
-	font-weight: bold;
-	
+p {
+  margin-bottom: 0px;
+}
+
+.box {
+  display: inline-block;
+}
+
+.button {
+  font: bold 12px Verdana;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: #333333;
+  padding: 1px 4px 1px 4px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+
+.header{
+  margin: auto;
+  text-align: center;
+}
+
+.main {
+  font: bold 24px Arial;
+}
+
+.statslink {
+  font: bold 16px Arial;
+}
+
+.temperature {
+  font: bold 18px Arial;
 }
 
 .topright {
-   position:absolute;
-   top:0;
-   right:0;
+  position:absolute;
+  top:0;
+  right:0;
 }
