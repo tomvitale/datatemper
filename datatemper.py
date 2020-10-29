@@ -4,7 +4,7 @@
 
 # TODO: daily graph | weekly graph | ...
 
-# Copyright (C) 2019  tomvitale
+# Copyright (C) 2020  tomvitale
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 '''
-	RPi WEb Server for DHT captured data with Graph plot  
+	RPi WEb Server for DHT captured data with Graph plot
 '''
 # # # # # CUSTOMIZATION # # # # #
 desc = "DESCRIPTION LABEL"
@@ -34,14 +34,16 @@ import threading
 import os
 import seaborn as sns
 import sqlite3
+import logging
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from matplotlib.figure import Figure
-from flask import Flask, render_template, send_file, make_response, request
+from flask import Flask, render_template, make_response
 
 app = Flask(__name__)
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 db_path = dir_path + "/datatemper-data.db"
+logging.basicConfig(filename= dir_path + '/datatemper.log', level=logging.DEBUG)
 
 conn = sqlite3.connect(db_path, check_same_thread=False)
 curs = conn.cursor()
@@ -124,7 +126,7 @@ def plot_temp():
 	axes = fig.add_subplot(1, 1, 1)
 	axes.set_title("Temperature [°C]")
 	axes.set_xlabel("Samples: " + str(numSamples()) + " | Alert: " + str(alertTemp) + "°C")
-	axes.set_ylim([1,40])
+	axes.set_ylim([10,40])
 	axes.hlines(y=alertTemp, xmin=0, xmax=numSamples(), linewidth=1, color='r')
 	axes.grid(True)
 	xs = range(numSamples())
@@ -159,4 +161,4 @@ def plot_hum():
 	return response
 
 if __name__ == "__main__":
-	app.run(host='0.0.0.0', port=80, debug=False)
+	app.run(debug=False, port=80, host='0.0.0.0')
