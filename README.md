@@ -10,20 +10,20 @@ Python library to read the DHT: https://github.com/adafruit/Adafruit_Python_DHT
 ### Installation
 Install packages
 ```sh
-$ sudo apt-get install python3-setuptools python3-setuptools-git python3-seaborn python3-flask python3-rpi.gpio python3.5-dev python3-matplotlib python3-pip sqlite3
+sudo apt-get install python3-setuptools python3-setuptools-git python3-seaborn python3-flask python3-rpi.gpio python3.5-dev python3-matplotlib python3-pip sqlite3
 ```
 
 Install Adafruit library
 ```sh
-$ sudo pip3 install Adafruit_DHT
+sudo pip3 install Adafruit_DHT
 ```
 
 Clone the repository data temper in your working directory (i.e. /opt/apps/) and execute with sudo and testing it
 ```sh
-$ git clone https://github.com/tomvitale/datatemper.git
-$ cd datatemper
-$ sudo python3 datatemper-log.py &
-$ sudo python3 datatemper.py &
+git clone https://github.com/tomvitale/datatemper.git
+cd datatemper
+sudo python3 datatemper-log.py &
+sudo python3 datatemper.py &
 ```
 
 Connect to http://localhost
@@ -31,7 +31,7 @@ Connect to http://localhost
 ### Testing Database
 Connect using sqlite3 to database and run some test
 ```sql
-$ sqlite3 datatemper-data.db
+sqlite3 datatemper-data.db
 ...
 ## num entries
 sqlite> select COUNT(*) from  DHT_data;
@@ -48,7 +48,7 @@ sqlite> .quit
 
 You can also delete all entries
 ```sql
-$ sqlite3 datatemper-data.db
+sqlite3 datatemper-data.db
 ...
 sqlite> DELETE FROM DHT_data;
 sqlite> .quit
