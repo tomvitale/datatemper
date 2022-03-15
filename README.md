@@ -22,8 +22,8 @@ Clone the repository data temper in your working directory (i.e. /opt/apps/) and
 ```sh
 git clone https://github.com/tomvitale/datatemper.git
 cd datatemper
-sudo python3 datatemper-log.py &
-sudo python3 datatemper.py &
+sudo -b python3 datatemper-log.py
+sudo -b python3 datatemper.py
 ```
 
 Connect to http://localhost
