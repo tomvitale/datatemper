@@ -10,7 +10,7 @@ Python library to read the DHT: https://github.com/adafruit/Adafruit_Python_DHT
 ### Installation
 Install packages
 ```sh
-sudo apt-get install python3-full python3-setuptools python3-setuptools-git python3-seaborn python3-flask python3-rpi.gpio python3-dev python3-matplotlib python3-pip sqlite3 
+sudo apt-get install python3-full python3-setuptools python3-setuptools-git python3-seaborn python3-flask python3-rpi.gpio python3-dev python3-matplotlib python3-pip python3-waitress sqlite3 
 ```
 
 Install Adafruit library
