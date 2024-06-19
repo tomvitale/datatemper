@@ -12,7 +12,7 @@
 # Description:
 ### END INIT INFO
 
-mainDir=/opt/apps/datatemper
+mainDir=/opt/projects/datatemper
 
 case "${1:-}" in
   stop|reload|restart|force-reload)
