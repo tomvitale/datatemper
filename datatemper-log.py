@@ -4,7 +4,7 @@
 
 # TODO: optimize code | ...
 
-# Copyright (C) 2020  tomvitale
+# Copyright (C) 2024  tomvitale
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 '''
-	RPi DHT data log with Adafruit_DHT into Sqlite3 db  
+	RPi DHT data log with Adafruit_DHT into Sqlite3 db
 '''
 
 import Adafruit_DHT
@@ -28,7 +28,7 @@ import RPi.GPIO as GPIO
 import sqlite3
 import sys
 import time
-import os 
+import os
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 db_path = dir_path + "/datatemper-data.db"
@@ -54,12 +54,15 @@ def getDHTdata():
 
 # log sensor data on database
 def logData (temp, hum):
-	date = time.strftime("%Y-%m-%d %H:%M:%S")
-	conn=sqlite3.connect(db_path)
-	curs=conn.cursor()
-	curs.execute("INSERT INTO DHT_data values((?), (?), (?))", (date, temp, hum))
-	conn.commit()
-	conn.close()
+    date = time.strftime("%Y-%m-%d %H:%M:%S")
+    conn=sqlite3.connect(db_path)
+    curs=conn.cursor()
+    curs.execute("INSERT INTO DHT_data values((?), (?), (?))", (date, temp, hum))
+    #print(time.strftime("%M"))
+    if ((time.strftime("%M") == "00") or (time.strftime("%M") == "30")):
+        curs.execute("INSERT INTO DHT_day values((?), (?), (?))", (date, temp, hum))
+    conn.commit()
+    conn.close()
 
 # main function
 def main():
