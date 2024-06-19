@@ -23,7 +23,7 @@
 	RPi WEb Server for DHT captured data with Graph plot  
 '''
 # # # # # CUSTOMIZATION # # # # #
-desc = "Laboratorio Computazionale"
+desc = "DATATEMPER"
 maxSamples = 48
 alertTemp = 34
 # # # # # # # # # # # # # # # # #
