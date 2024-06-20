@@ -53,5 +53,8 @@ sqlite3 datatemper-data.db
 sqlite> DELETE FROM DHT_data;
 sqlite> .quit
 ```
+### Wiring
+![alt Screenshot](https://raw.githubusercontent.com/tomvitale/datatemper/master/wiring.png)
+
 ### Screenshot
 ![alt Screenshot](https://raw.githubusercontent.com/tomvitale/datatemper/master/screenshot.png)
