@@ -15,7 +15,9 @@ sudo apt-get install python3-full python3-setuptools python3-setuptools-git pyth
 
 Install Adafruit library
 ```sh
-sudo pip3 install Adafruit_DHT
+sudo pip3 install adafruit-circuitpython-dht
+ or
+sudo pip3 install adafruit-circuitpython-dht --break-system-packages
 ```
 
 Clone the repository data temper in your working directory (i.e. /opt/apps/) and execute with sudo and testing it
@@ -26,7 +28,25 @@ sudo -b python3 datatemper-log.py
 sudo -b python3 datatemper.py
 ```
 
-Connect to http://localhost
+Info about dht22 connection
+```sh
+import time
+import board
+import adafruit_dht
+
+dhtDevice = adafruit_dht.DHT22(board.D4)
+#dhtDevice = adafruit_dht.DHT22(board.D4, use_pulseio=False)
+
+while True:
+  try:
+    temperature = dht_device.temperature
+    humidity = dht_device.humidity
+  except RuntimeError as error:
+    print("Errore: "+error.args[0])
+
+  time.sleep(2)
+```
+
 
 ### Testing Database
 Connect using sqlite3 to database and run some test
